@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  app:
+    image: 'spring-training:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - TRAINING_DB_URL=jdbc:postgresql://db:5432/test
+      - TRAINING_DB_USERNAME=postgres
+      - TRAINING_DB_PASSWORD=postgres
+    ports:
+      - "8080:8080"
+
+  db:
+    image: 'postgres:latest'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=test
